@@ -81,7 +81,7 @@ If you use this code in your research, please cite it as follows:
   title = {BentleyOttmannSweepLine},
   year = {2024},
   publisher = {GitHub},
-  howpublished = {\url{https://github.com/your-repository-url}},
+  howpublished = {\url{https://github.com/evaldnexhipi/BentleyOttmannSweepLine}},
   note = {Research Associate at Technical University of Munich (TUM), Chair of Traffic Engineering and Control, Department of Mobility Systems.},
   email = {evald.nexhipi@tum.de}
 }
