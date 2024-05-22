@@ -4,19 +4,31 @@
 #include <set>
 #include <vector>
 
-double CompareSegment::x = 0.0; // Define the static variable here
+// Define the static variable x in CompareSegment
+double CompareSegment::x = 0.0;
 
-// Function to check the orientation of the ordered triplet (p, q, r).
-// 0 --> p, q and r are collinear
-// 1 --> Clockwise
-// 2 --> Counterclockwise
+/**
+ * @brief Function to check the orientation of the ordered triplet (p, q, r).
+ *
+ * @param p The first point.
+ * @param q The second point.
+ * @param r The third point.
+ * @return 0 if p, q, and r are collinear, 1 if clockwise, 2 if counterclockwise.
+ */
 int orientation(Point p, Point q, Point r) {
     int val = (q.m_y - p.m_y) * (r.m_x - q.m_x) - (q.m_x - p.m_x) * (r.m_y - q.m_y);
-    if (val == 0) return 0;  // collinear
-    return (val > 0) ? 1 : 2; // clock or counter clockwise
+    if (val == 0) return 0; // collinear
+    return (val > 0) ? 1 : 2; // clock or counterclockwise
 }
 
-// Function to check if point q lies on segment pr
+/**
+ * @brief Function to check if point q lies on segment pr.
+ *
+ * @param p The first point of the segment.
+ * @param q The point to check.
+ * @param r The second point of the segment.
+ * @return true if q lies on the segment pr, false otherwise.
+ */
 bool onSegment(Point p, Point q, Point r) {
     if (q.m_x <= std::max(p.m_x, r.m_x) && q.m_x >= std::min(p.m_x, r.m_x) &&
         q.m_y <= std::max(p.m_y, r.m_y) && q.m_y >= std::min(p.m_y, r.m_y))
@@ -24,7 +36,13 @@ bool onSegment(Point p, Point q, Point r) {
     return false;
 }
 
-// Function to check if two segments (p1q1) and (p2q2) intersect
+/**
+ * @brief Function to check if two segments (p1q1) and (p2q2) intersect.
+ *
+ * @param s1 The first segment.
+ * @param s2 The second segment.
+ * @return true if the segments intersect, false otherwise.
+ */
 bool doIntersect(Segment s1, Segment s2) {
     Point p1 = s1.m_left, q1 = s1.m_right;
     Point p2 = s2.m_left, q2 = s2.m_right;
@@ -40,22 +58,21 @@ bool doIntersect(Segment s1, Segment s2) {
         return true;
 
     // Special Cases
-    // p1, q1 and p2 are collinear and p2 lies on segment p1q1
     if (o1 == 0 && onSegment(p1, p2, q1)) return true;
-
-    // p1, q1 and q2 are collinear and q2 lies on segment p1q1
     if (o2 == 0 && onSegment(p1, q2, q1)) return true;
-
-    // p2, q2 and p1 are collinear and p1 lies on segment p2q2
     if (o3 == 0 && onSegment(p2, p1, q2)) return true;
-
-    // p2, q2 and q1 are collinear and q1 lies on segment p2q2
     if (o4 == 0 && onSegment(p2, q1, q2)) return true;
 
     return false; // Doesn't fall in any of the above cases
 }
 
-// Function to calculate the intersection point of two segments
+/**
+ * @brief Function to calculate the intersection point of two segments.
+ *
+ * @param s1 The first segment.
+ * @param s2 The second segment.
+ * @return The intersection point of the two segments.
+ */
 Point calculateIntersection(Segment s1, Segment s2) {
     Point p1 = s1.m_left, q1 = s1.m_right;
     Point p2 = s2.m_left, q2 = s2.m_right;
@@ -80,19 +97,27 @@ Point calculateIntersection(Segment s1, Segment s2) {
     }
 }
 
+/**
+ * @brief Finds all intersections among a set of line segments using the Bentley-Ottmann sweep line algorithm.
+ *
+ * @param segments A reference to a vector of segments to be checked for intersections.
+ * @return A vector of points representing all intersection points found among the segments.
+ */
 std::vector<Point> findIntersections(std::vector<Segment> &segments) {
     std::vector<Point> intersections;
 
+    // Create events for each segment's endpoints
     std::vector<Event> events;
     for (Segment &s : segments) {
         events.push_back({s.m_left, true, s});
         events.push_back({s.m_right, false, s});
     }
 
+    // Sort events by x-coordinate, and by y-coordinate if x-coordinates are equal
     std::sort(events.begin(), events.end());
 
-    std::vector<Segment> sweepLine;
-    CompareSegment comparator;
+    std::vector<Segment> sweepLine; // Status structure
+    CompareSegment comparator; // Comparator for the status structure
 
     std::set<std::pair<int, int>> uniqueIntersections; // To track unique intersection points
 

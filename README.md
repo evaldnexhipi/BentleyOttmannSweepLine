@@ -95,11 +95,12 @@ For any questions or issues, please contact:
 - Email: evald.nexhipi@tum.de
 
 ## Performance Evaluation
+The following plots summarize the computational efficiency of the implementation:
 
 ### Time Complexity of Bentley-Ottmann Algorithm
 
 ![Time Complexity](./data/output.png)
-This plot shows the relationship between the number of segments and the time taken by the algorithm. Both axes are in logarithmic scale to handle the wide range of values. As the number of segments increases, the time complexity follows a predictable pattern.
+This plot shows the relationship between the number of segments and the time taken by the algorithm. Both axes are in logarithmic scale to handle the wide range of values. As the number of segments increases, the time complexity follows a predictable pattern. This is consistent with the expected time complexity of O((N+K)log(N)), where N is the number of segments and K is the number of intersections. The log-log scale plot demonstrates a linear relationship, indicating efficient handling of large datasets of segments.
 
 ### Number of Intersections Detected by Bentley-Ottmann Algorithm
 
@@ -109,9 +110,11 @@ This plot illustrates how the number of intersections detected scales with the n
 ### Time vs Number of Intersections in Bentley-Ottmann Algorithm
 
 ![Time vs Intersections](./data/output(2).png)
-This plot shows the relationship between the number of intersections detected and the time taken by the algorithm. Both axes are in logarithmic scale. It helps to understand how the complexity of the problem (in terms of intersections) affects the execution time.
+This plot shows the relationship between the number of intersections detected and the time taken by the algorithm. Both axes are in logarithmic scale. As expected, the execution time increases with the number of intersections, reflecting the algorithm's dependence on both the number of segments and the number of intersections.
 
 ### Efficiency of Bentley-Ottmann Algorithm
 
 ![Efficiency](./data/output(3).png)
-This plot depicts the efficiency of the algorithm in terms of the number of intersections detected per second, plotted against the number of segments. Both axes are in logarithmic scale. The efficiency decreases as the number of segments increases, indicating the algorithm's performance characteristics over different input sizes.
+The fourth plot presents the efficiency of the algorithm, measured as the number of intersections detected per second, plotted against the number of segments. Initially, the efficiency remains high but begins to decrease as the number of segments increases beyond a certain point. This drop in efficiency at higher segment counts is likely due to the increased computational overhead required to manage a larger number of events and status changes.
+
+In summary, our C++ implementation of the Bentley-Ottmann algorithm performs efficiently across a wide range of input sizes, demonstrating its suitability for large-scale intersection detection problems in computational geometry. The observed performance metrics align well with the theoretical expectations, validating the implementation's correctness and efficiency.
