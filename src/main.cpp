@@ -6,8 +6,8 @@
 #include "SweepLineAlgorithm.h"
 
 Segment generateRandomSegment() {
-    Point p1 = {rand() % 100, rand() % 100};
-    Point p2 = {rand() % 100, rand() % 100};
+    Point p1 = {static_cast<double>(rand() % 100), static_cast<double>(rand() % 100)};
+    Point p2 = {static_cast<double>(rand() % 100), static_cast<double>(rand() % 100)};
     return {p1, p2};
 }
 

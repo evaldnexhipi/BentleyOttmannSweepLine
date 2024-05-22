@@ -4,15 +4,16 @@
 #include "Segment.h"
 
 struct CompareSegment {
+    static double x; // Declare as extern to avoid multiple definitions
+
     bool operator()(const Segment &s1, const Segment &s2) const {
-        // Placeholder logic for comparing two segments
-        // This needs to be defined according to your requirements
-        // For simplicity, let's compare the starting points
-        if (s1.p1.x != s2.p1.x)
-            return s1.p1.x < s2.p1.x;
-        return s1.p1.y < s2.p1.y;
+        double y1 = s1.ComputeYatX(x);
+        double y2 = s2.ComputeYatX(x);
+
+        if (y1 != y2)
+            return y1 < y2;
+        return s1.m_left.m_x < s2.m_left.m_x;
     }
 };
 
 #endif // COMPARESEGMENT_H
-

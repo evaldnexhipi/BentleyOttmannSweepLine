@@ -62,7 +62,7 @@ BentleyOttmannSweepLine/
 ### Running the Code
 After building the project, you can run the executable:
 ```bash
-./BentleyOttmannSweepLine
+./BentleyOttmannSweepLine numberOfSegments
 ```
 
 ## How to Rerun the Code After Making Changes
